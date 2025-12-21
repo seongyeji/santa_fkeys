@@ -111,7 +111,7 @@ const metaTitle = computed(() => {
 })
 
 const metaDescription = computed(() => {
-  return displayResult.value?.description || '당신과 비슷한 FKEYS 요원을 찾아보세요!'
+  return '당신과 비슷한 FKEYS 요원을 찾아보세요!'
 })
 
 // 공유 이미지 URL (Firebase Storage URL만 사용)

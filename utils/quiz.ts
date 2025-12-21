@@ -8,61 +8,71 @@ import { QUIZ_QUESTIONS, CHARACTER_PROFILES } from '~/data/questions'
 export function generatePersonalizedTraits(answers: CharacterType[]): string[] {
   // 각 질문별 선택 분석을 위한 패턴 정의
   const traitPatterns: Record<number, Record<CharacterType, string[]>> = {
-    1: { // 긴급 상황 대처
+    1: {
+      // 긴급 상황 대처
       A: ['즉각 행동형', '순발력 있는'],
       B: ['체계적인', '꼼꼼한'],
       C: ['협력적인', '팀워크 중시'],
       D: ['침착한', '신중한']
     },
-    2: { // 위험 상황 판단
+    2: {
+      // 위험 상황 판단
       A: ['도전적인', '용감한'],
       B: ['안전 우선적', '현실적인'],
       C: ['유연한', '적응력 있는'],
       D: ['신중한', '여유로운']
     },
-    3: { // 조심성
+    3: {
+      // 조심성
       A: ['효율적인', '빠른 판단'],
       B: ['신중한', '세심한'],
       C: ['타인 배려적', '공감하는'],
       D: ['감수성 있는', '섬세한']
     },
-    4: { // 의사결정 방식
+    4: {
+      // 의사결정 방식
       A: ['직관적인', '결단력 있는'],
       B: ['분석적인', '논리적인'],
       C: ['소통하는', '협력적인'],
       D: ['신중한', '유연한']
     },
-    5: { // 문제 해결
+    5: {
+      // 문제 해결
       A: ['창의적인', '임기응변'],
       B: ['체계적인', '정확한'],
       C: ['공정한', '균형 잡힌'],
       D: ['성찰적인', '진지한']
     },
-    6: { // 어려움 대처
+    6: {
+      // 어려움 대처
       A: ['추진력 있는', '도전적인'],
       B: ['전략적인', '계획적인'],
       C: ['신중한', '사려 깊은'],
       D: ['유연한', '현실적인']
     },
-    7: { // 체력 관리
+    7: {
+      // 체력 관리
       A: ['끈기 있는', '의지가 강한'],
       B: ['계획적인', '페이스 조절'],
       C: ['자기 다독이는', '긍정적인'],
       D: ['자기 이해적', '솔직한']
     },
-    8: { // 감정 반응
+    8: {
+      // 감정 반응
       A: ['열정적인', '적극적인'],
       B: ['현실적인', '이성적인'],
       C: ['따뜻한', '공감하는'],
       D: ['내성적인', '조용한']
     },
-    9: { // 우선순위 설정
+    9: {
+      // 우선순위 설정
       A: ['목표 지향적', '중요도 파악'],
       B: ['체계적인', '계획적인'],
       C: ['공평한', '배려하는'],
       D: ['현실적인', '자기 인식']
     },
-    10: { // 성취 후 감정
+    10: {
+      // 성취 후 감정
       A: ['성취감 중시', '목표 달성형'],
       B: ['완벽주의적', '안정 추구'],
       C: ['타인 중심적', '이타적인'],
@@ -78,7 +88,7 @@ export function generatePersonalizedTraits(answers: CharacterType[]): string[] {
     const traits = traitPatterns[questionId]?.[answer]
 
     if (traits) {
-      traits.forEach(trait => {
+      traits.forEach((trait) => {
         traitCounts.set(trait, (traitCounts.get(trait) || 0) + 1)
       })
     }
@@ -128,9 +138,10 @@ export function calculateResult(answers: CharacterType[]): QuizResult {
   }
 
   // 가장 높은 점수의 캐릭터 타입 찾기
-  const dominantCharacter = Object.entries(scores).reduce((max, [char, score]) =>
-    score > max.score ? { char, score } : max
-  , { char: 'lena', score: 0 }).char as 'lena' | 'rahel' | 'dowon' | 'runa'
+  const dominantCharacter = Object.entries(scores).reduce(
+    (max, [char, score]) => (score > max.score ? { char, score } : max),
+    { char: 'lena', score: 0 }
+  ).char as 'lena' | 'rahel' | 'dowon' | 'runa'
 
   // 타입 매핑
   const typeMapping: Record<'lena' | 'rahel' | 'dowon' | 'runa', CharacterType> = {
@@ -150,7 +161,6 @@ export function calculateResult(answers: CharacterType[]): QuizResult {
   return {
     dominantType,
     characterName: profile.name,
-    description: profile.description,
     percentages,
     personalizedTraits
   }

@@ -32,7 +32,6 @@ export interface Question {
 export interface QuizResult {
   dominantType: CharacterType
   characterName: string
-  description: string
   percentages: {
     lena: number
     rahel: number
