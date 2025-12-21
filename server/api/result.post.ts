@@ -1,59 +1,67 @@
-import { promises as fs } from 'fs'
-import path from 'path'
 import { randomUUID } from 'crypto'
+import { getFirebaseDB } from '../utils/firebase'
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event)
-
-  const dataDir = path.resolve('server/data')
-  const filePath = path.join(dataDir, 'results.json')
-
-  await fs.mkdir(dataDir, { recursive: true })
-
-  let existing: any[] = []
   try {
-    const file = await fs.readFile(filePath, 'utf-8')
-    existing = JSON.parse(file)
-  } catch {}
+    console.log('[API] POST /api/result - Received request')
 
-  // IP 주소 가져오기
-  const ip = getRequestHeader(event, 'x-forwarded-for') ||
-             getRequestHeader(event, 'x-real-ip') ||
-             event.node.req.socket.remoteAddress ||
-             'unknown'
+    const body = await readBody(event)
+    console.log('[API] Request body:', { userName: body.userName, hasResult: !!body.result, hasAnswers: !!body.answers })
 
-  // 동일한 IP와 닉네임을 가진 기존 결과 찾기
-  const existingIndex = existing.findIndex(
-    (item) => item.ip === ip && item.userName === body.userName
-  )
+    const db = getFirebaseDB()
+    console.log('[API] Firebase DB obtained')
 
-  let id: string
-  if (existingIndex !== -1) {
-    // 기존 결과 업데이트
-    id = existing[existingIndex].id
-    existing[existingIndex] = {
-      id,
+    // IP 주소 가져오기
+    const ip = getRequestHeader(event, 'x-forwarded-for') ||
+               getRequestHeader(event, 'x-real-ip') ||
+               event.node.req.socket.remoteAddress ||
+               'unknown'
+
+    const resultsRef = db.collection('results')
+
+    // 동일한 IP와 닉네임을 가진 기존 결과 찾기
+    console.log('[API] Checking for existing result...')
+    const existingSnapshot = await resultsRef
+      .where('ip', '==', ip)
+      .where('userName', '==', body.userName)
+      .limit(1)
+      .get()
+
+    let id: string
+    const data = {
       ip,
       userName: body.userName,
       result: body.result,
       answers: body.answers,
       updatedAt: new Date().toISOString()
     }
-  } else {
-    // 새 결과 추가
-    id = randomUUID()
-    const result = {
-      id,
-      ip,
-      userName: body.userName,
-      result: body.result,
-      answers: body.answers,
-      updatedAt: new Date().toISOString()
+
+    if (!existingSnapshot.empty) {
+      // 기존 결과 업데이트
+      console.log('[API] Updating existing result')
+      const doc = existingSnapshot.docs[0]!
+      id = doc.id
+      await resultsRef.doc(id).update(data)
+    } else {
+      // 새 결과 추가
+      console.log('[API] Creating new result')
+      id = randomUUID()
+      await resultsRef.doc(id).set({
+        ...data,
+        createdAt: new Date().toISOString()
+      })
     }
-    existing.push(result)
+
+    console.log('[API] Success - Result ID:', id)
+    return { success: true, id }
+  } catch (error) {
+    console.error('[API] Error in POST /api/result:', error)
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Failed to save result',
+      data: {
+        error: error instanceof Error ? error.message : 'Unknown error'
+      }
+    })
   }
-
-  await fs.writeFile(filePath, JSON.stringify(existing, null, 2))
-
-  return { success: true, id }
 })

@@ -24,13 +24,13 @@
           <div class="space-y-6 text-center">
             <!-- STEP 1 -->
 
-            <div
+            <!-- <div
               class="border border-primary-400/40 bg-black/40 p-4 shadow-[0_0_20px_rgba(56,189,248,0.3)] text-slate-200 animate-glowBox rounded-md"
-            >
-              임무를 끝까지 진행하면, <br />
-              가장 닮은
-              <span class="text-primary-300 font-semibold">fkeys 요원</span>이 안내됩니다.
-            </div>
+            > -->
+            임무를 끝까지 진행하면, <br />
+            가장 닮은
+            <span class="text-primary-300 font-semibold">fkeys 요원</span>이 안내됩니다.
+            <!-- </div> -->
           </div>
         </div>
       </div>
@@ -42,10 +42,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-useHead({
-  title: '산타 대타 임무 테스트'
-})
-</script>
+<script setup lang="ts"></script>
 
 <style scoped></style>

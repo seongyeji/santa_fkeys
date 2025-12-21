@@ -7,12 +7,12 @@ body {
   @apply antialiased;
   font-family: 'Pretendard';
 }
-body :has(#home) {
+/* body :has(#home) {
   background-image: url('@/assets/imgs/bg.png');
   background-position: top center;
   background-size: cover;
   background-repeat: no-repeat;
-}
+} */
 
 @font-face {
   font-family: 'Pretendard';

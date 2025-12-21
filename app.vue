@@ -12,9 +12,8 @@
 </template>
 
 <script setup lang="ts">
-// App-level setup can go here
 useHead({
-  titleTemplate: '%s - Santa FKeys',
+  titleTemplate: 'Santa FKeys',
   htmlAttrs: {
     lang: 'ko'
   }

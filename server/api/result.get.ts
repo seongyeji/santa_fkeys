@@ -1,16 +1,23 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+import { getFirebaseDB } from '../utils/firebase'
 
 export default defineEventHandler(async (event) => {
   const id = getQuery(event).id as string
-  const filePath = path.resolve('server/data/results.json')
+  const db = getFirebaseDB()
 
   try {
-    const file = await fs.readFile(filePath, 'utf-8')
-    const results = JSON.parse(file)
-    const item = results.find((r: any) => r.id === id)
-    return item || null
-  } catch {
+    const docRef = db.collection('results').doc(id)
+    const doc = await docRef.get()
+
+    if (!doc.exists) {
+      return null
+    }
+
+    return {
+      id: doc.id,
+      ...doc.data()
+    }
+  } catch (error) {
+    console.error('Error fetching result:', error)
     return null
   }
 })

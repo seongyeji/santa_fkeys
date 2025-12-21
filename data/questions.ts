@@ -15,7 +15,7 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '잠시 숨을 고르고 마음을 정리한다'
     },
     scores: {
-      A: { lena: 3, rahel: 1, dowon: 1, runa: 0 },
+      A: { lena: 3, rahel: 0, dowon: 0, runa: 0 },
       B: { lena: 0, rahel: 3, dowon: 1, runa: 1 },
       C: { lena: 1, rahel: 1, dowon: 3, runa: 0 },
       D: { lena: 0, rahel: 1, dowon: 1, runa: 3 }
@@ -35,7 +35,7 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '잠시 날씨가 잦아들길 기다린다'
     },
     scores: {
-      A: { lena: 3, rahel: 0, dowon: 1, runa: 1 },
+      A: { lena: 3, rahel: 0, dowon: 0, runa: 1 },
       B: { lena: 1, rahel: 3, dowon: 1, runa: 0 },
       C: { lena: 1, rahel: 2, dowon: 3, runa: 0 },
       D: { lena: 0, rahel: 1, dowon: 1, runa: 3 }
@@ -55,7 +55,7 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '괜히 긴장하며 발걸음을 늦춘다'
     },
     scores: {
-      A: { lena: 3, rahel: 1, dowon: 0, runa: 1 },
+      A: { lena: 3, rahel: 0, dowon: 0, runa: 1 },
       B: { lena: 1, rahel: 3, dowon: 1, runa: 1 },
       C: { lena: 0, rahel: 1, dowon: 3, runa: 1 },
       D: { lena: 0, rahel: 1, dowon: 1, runa: 3 }
@@ -75,7 +75,7 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '잠시 보류하고 다음 집으로 간다'
     },
     scores: {
-      A: { lena: 3, rahel: 0, dowon: 1, runa: 1 },
+      A: { lena: 3, rahel: 0, dowon: 0, runa: 1 },
       B: { lena: 0, rahel: 3, dowon: 1, runa: 1 },
       C: { lena: 1, rahel: 1, dowon: 3, runa: 0 },
       D: { lena: 1, rahel: 1, dowon: 0, runa: 3 }
@@ -95,7 +95,7 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '마음이 무거워 잠시 멈춘다'
     },
     scores: {
-      A: { lena: 3, rahel: 1, dowon: 1, runa: 0 },
+      A: { lena: 3, rahel: 0, dowon: 0, runa: 0 },
       B: { lena: 0, rahel: 3, dowon: 1, runa: 1 },
       C: { lena: 1, rahel: 1, dowon: 3, runa: 1 },
       D: { lena: 0, rahel: 0, dowon: 1, runa: 3 }
@@ -115,7 +115,7 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '이 집을 마지막으로 미룬다'
     },
     scores: {
-      A: { lena: 3, rahel: 0, dowon: 1, runa: 1 },
+      A: { lena: 3, rahel: 0, dowon: 0, runa: 1 },
       B: { lena: 2, rahel: 3, dowon: 1, runa: 0 },
       C: { lena: 0, rahel: 2, dowon: 3, runa: 1 },
       D: { lena: 0, rahel: 1, dowon: 1, runa: 3 }
@@ -135,7 +135,7 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '잠깐 쉬어야 한다고 인정한다'
     },
     scores: {
-      A: { lena: 3, rahel: 1, dowon: 1, runa: 0 },
+      A: { lena: 3, rahel: 0, dowon: 0, runa: 0 },
       B: { lena: 1, rahel: 3, dowon: 1, runa: 1 },
       C: { lena: 1, rahel: 1, dowon: 2, runa: 3 },
       D: { lena: 0, rahel: 1, dowon: 1, runa: 3 }
@@ -155,7 +155,7 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '편지를 조용히 접어둔다'
     },
     scores: {
-      A: { lena: 3, rahel: 1, dowon: 2, runa: 1 },
+      A: { lena: 3, rahel: 0, dowon: 0, runa: 1 },
       B: { lena: 1, rahel: 3, dowon: 1, runa: 0 },
       C: { lena: 0, rahel: 1, dowon: 3, runa: 2 },
       D: { lena: 0, rahel: 1, dowon: 1, runa: 3 }
@@ -175,7 +175,7 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '내가 감당할 수 있는 만큼만 한다'
     },
     scores: {
-      A: { lena: 3, rahel: 2, dowon: 1, runa: 0 },
+      A: { lena: 3, rahel: 0, dowon: 0, runa: 0 },
       B: { lena: 1, rahel: 3, dowon: 1, runa: 1 },
       C: { lena: 0, rahel: 1, dowon: 3, runa: 1 },
       D: { lena: 0, rahel: 1, dowon: 1, runa: 3 }
@@ -195,7 +195,7 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '긴 밤을 버틴 나 자신'
     },
     scores: {
-      A: { lena: 3, rahel: 1, dowon: 1, runa: 0 },
+      A: { lena: 3, rahel: 0, dowon: 0, runa: 0 },
       B: { lena: 1, rahel: 3, dowon: 1, runa: 1 },
       C: { lena: 1, rahel: 1, dowon: 3, runa: 1 },
       D: { lena: 0, rahel: 1, dowon: 1, runa: 3 }
@@ -207,28 +207,21 @@ export const CHARACTER_PROFILES = {
   lena: {
     type: 'A' as CharacterType,
     name: '레나 (LENA)',
-    description: '🧡 SPY · ORANGE AGENT · 03.26\n빠른 판단과 실행력으로 임무를 완수하는 행동파',
     traits: ['빠른 결단력', '추진력', '목표지향적', '실행력']
   },
   rahel: {
     type: 'B' as CharacterType,
     name: '라헬 (RAHEL)',
-    description:
-      '💜 ASSASSIN/SNIPER · VIOLET AGENT · 01.13\n치밀한 계획과 점검으로 실수를 최소화하는 전략가',
     traits: ['체계적', '분석적', '안정지향적', '꼼꼼함', '집요함']
   },
   dowon: {
     type: 'C' as CharacterType,
     name: '도원 (DOWON)',
-    description:
-      '💚 INTELLIGENCE OFFICER · GREEN AGENT · 09.07\n팀워크와 완벽한 전략으로 모두를 챙기는 조율자',
     traits: ['공감능력', '전략적 사고', '균형감각', '배려심']
   },
   runa: {
     type: 'D' as CharacterType,
     name: '루나 (RUNA)',
-    description:
-      '🤍 SPECIALIST/HACKER · WHITE AGENT · 12.01\n감정과 내면의 소리에 귀 기울이는 성찰가',
     traits: ['정서적', '신중함', '자기이해', '감수성']
   }
 } as const

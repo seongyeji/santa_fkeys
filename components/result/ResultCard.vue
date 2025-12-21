@@ -1,47 +1,45 @@
 <template>
-  <div v-if="result" :class="['rounded-2xl shadow-2xl p-8 md:p-12', cardColorClass]">
-    <div class="text-center mb-8">
-      <div
-        :class="[
-          'inline-flex items-center justify-center w-24 h-24 md:w-32 md:h-32 rounded-full text-white text-5xl md:text-6xl mb-6 shadow-lg',
-          iconColorClass
-        ]"
-      >
-        🎅
-      </div>
-
-      <h2 class="text-2xl md:text-3xl font-bold mb-4">{{ userName }}님은</h2>
-
-      <h3 :class="['text-5xl md:text-7xl font-black mb-6 leading-tight', textColorClass]">
-        {{ result.characterName }}
-      </h3>
-
-      <p class="text-xl md:text-2xl leading-relaxed whitespace-pre-line">
-        {{ result.description }}
-      </p>
+  <div v-if="result" :class="['rounded-2xl border relative aspect-5/6', borderColorClass]" class="result-card-inner">
+    <div class="absolute inset-0 overflow-hidden rounded-2xl">
+      <img :src="characterImage" class="w-full h-full object-cover" :alt="result.characterName" />
     </div>
 
-    <div v-if="characterTraits.length" class="mt-10">
-      <h4 class="text-base md:text-lg font-semibold mb-4 text-center">주요 특징</h4>
-      <div class="flex flex-wrap justify-center gap-3">
+    <div
+      :class="[
+        'inline-flex items-center justify-center gap-1 rounded-tr-2xl rounded-bl-2xl absolute right-0 top-0 py-2 px-3 z-10 whitespace-nowrap',
+        badgeColorClass
+      ]"
+    >
+      <span>🎅</span>
+      <span>{{ userName }}</span>
+    </div>
+
+    <div v-if="characterTraits.length" class="absolute w-full bottom-[5%] z-10">
+      <div class="flex flex-wrap justify-end gap-3 w-[90%] mx-auto">
         <span
           v-for="trait in characterTraits"
           :key="trait"
-          class="px-5 py-3 rounded-full text-base md:text-lg font-medium shadow-md"
+          :class="[
+            'px-3 py-1 rounded-full text-base font-medium shadow-md border bg-black/50',
+            traitColorClass
+          ]"
         >
+          #
           {{ trait }}
         </span>
       </div>
     </div>
   </div>
-
-  <div v-else class="text-center py-10">결과를 불러오는 중...</div>
 </template>
 
 <script setup lang="ts">
 import type { QuizResult } from '~/types/quiz'
 import { CHARACTER_PROFILES } from '~/data/questions'
 import { computed } from 'vue'
+import lenaImg from '@/assets/imgs/result/lena.png'
+import rahelImg from '@/assets/imgs/result/rahel.png'
+import dowonImg from '@/assets/imgs/result/dowon.png'
+import runaImg from '@/assets/imgs/result/runa.png'
 
 const props = defineProps<{
   result: QuizResult | null
@@ -53,37 +51,58 @@ const typeMapping = { A: 'lena', B: 'rahel', C: 'dowon', D: 'runa' } as const
 const characterKey = computed(() => typeMapping[props.result?.dominantType ?? 'A']) // 기본값 A
 
 const characterTraits = computed(() => {
+  // 개인화된 특성이 있으면 우선 사용, 없으면 기본 특성 사용
+  if (props.result?.personalizedTraits && props.result.personalizedTraits.length > 0) {
+    return props.result.personalizedTraits
+  }
+
   const key = characterKey.value
   return CHARACTER_PROFILES[key]?.traits ?? []
 })
 
-const cardColorClass = computed(() => {
-  const colors = {
-    lena: 'bg-gradient-to-br from-transparent to-orange-800/20',
-    rahel: 'bg-gradient-to-br from-transparent to-purple-800/20',
-    dowon: 'bg-gradient-to-br from-transparent to-green-800/20',
-    runa: 'bg-gradient-to-br from-transparent to-slate-800/20'
+// 캐릭터별 이미지 경로
+const characterImage = computed(() => {
+  const images = {
+    lena: lenaImg,
+    rahel: rahelImg,
+    dowon: dowonImg,
+    runa: runaImg
   }
-  return colors[characterKey.value] ?? ''
+  return images[characterKey.value] ?? images.rahel
 })
 
-const iconColorClass = computed(() => {
+// 테두리 그라데이션
+const borderColorClass = computed(() => {
+  const colors = {
+    lena: 'border-2 border-transparent bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 bg-clip-border',
+    rahel:
+      'border-2 border-transparent bg-gradient-to-br from-purple-400 via-purple-500 to-purple-600 bg-clip-border',
+    dowon:
+      'border-2 border-transparent bg-gradient-to-br from-green-400 via-green-500 to-green-600 bg-clip-border',
+    runa: 'border-2 border-transparent bg-gradient-to-br from-slate-400 via-slate-500 to-slate-600 bg-clip-border'
+  }
+  return colors[characterKey.value] ?? colors.rahel
+})
+
+// 배지 배경 색상
+const badgeColorClass = computed(() => {
   const colors = {
     lena: 'bg-orange-500',
     rahel: 'bg-purple-500',
     dowon: 'bg-green-500',
-    runa: 'bg-slate-500'
+    runa: 'bg-slate-300 text-slate-900'
   }
-  return colors[characterKey.value] ?? ''
+  return colors[characterKey.value] ?? 'bg-purple-500'
 })
 
-const textColorClass = computed(() => {
+// 특성 태그 색상
+const traitColorClass = computed(() => {
   const colors = {
-    lena: 'text-orange-400',
-    rahel: 'text-purple-400',
-    dowon: 'text-green-400',
-    runa: 'text-slate-400'
+    lena: 'border-orange-500 text-orange-500',
+    rahel: 'border-purple-500 text-purple-500',
+    dowon: 'border-green-500 text-green-500',
+    runa: 'border-slate-300 text-slate-300'
   }
-  return colors[characterKey.value] ?? ''
+  return colors[characterKey.value] ?? 'border-purple-500 text-purple-500'
 })
 </script>

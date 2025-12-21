@@ -39,6 +39,7 @@ export interface QuizResult {
     dowon: number
     runa: number
   }
+  personalizedTraits?: string[]
 }
 
 // Character profile

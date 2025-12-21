@@ -1,11 +1,22 @@
 <template>
   <div class="container mx-auto px-4 py-8">
-    <div ref="resultCardRef" class="animate-on-scroll" :class="{ 'is-visible': isCardVisible }">
-      <ResultCard
-        v-if="displayResult"
-        :result="displayResult"
-        :user-name="displayUserName"
-        class="mb-8"
+    <!-- 이미지 생성용 숨겨진 ResultCard -->
+    <div
+      v-if="displayResult && !generatedImageUrl"
+      ref="resultCardRef"
+      class="fixed top-0 left-0 opacity-0 pointer-events-none"
+      style="width: 500px; height: 600px; z-index: -1"
+    >
+      <ResultCard :result="displayResult" :user-name="displayUserName" />
+    </div>
+
+    <!-- 실제 화면에 표시될 이미지 -->
+    <div class="animate-on-scroll" :class="{ 'is-visible': isCardVisible }">
+      <img
+        v-if="generatedImageUrl"
+        :src="generatedImageUrl"
+        alt="결과 카드"
+        class="mb-8 mx-auto w-full"
       />
     </div>
 
@@ -59,6 +70,19 @@
     <div ref="promoRef" class="animate-on-scroll mt-16" :class="{ 'is-visible': isPromoVisible }">
       <ResultPromoCard />
     </div>
+
+    <!-- 로딩 오버레이 -->
+    <div
+      v-if="isLoading"
+      class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50"
+    >
+      <div class="flex flex-col items-center gap-4">
+        <div
+          class="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"
+        ></div>
+        <p class="text-white text-lg font-medium">{{ loadingMessage }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -86,6 +110,13 @@ const isCardVisible = ref(false)
 const isChartVisible = ref(false)
 const isButtonsVisible = ref(false)
 const isPromoVisible = ref(false)
+
+// 로딩 상태
+const isLoading = ref(false)
+const loadingMessage = ref('')
+
+// 생성된 이미지 상태
+const generatedImageUrl = ref<string | null>(null)
 
 const displayUserName = computed(() => userStore.name || quizStore.savedUserName)
 const displayResult = computed<QuizResult | null>(() => quizStore.savedResult || quizStore.result)
@@ -121,6 +152,38 @@ const setupScrollAnimation = () => {
   if (promoRef.value) observer.observe(promoRef.value)
 }
 
+const generateCardImage = async () => {
+  if (!resultCardRef.value) return
+
+  try {
+    // DOM이 완전히 렌더링될 때까지 대기
+    await new Promise((resolve) => setTimeout(resolve, 500))
+
+    const element = resultCardRef.value.querySelector('.result-card-inner')
+    if (!element) {
+      console.error('ResultCard 요소를 찾을 수 없습니다')
+      return
+    }
+
+    const targetWidth = 500
+    const targetHeight = 600
+
+    // 이미지 생성 (base64 data URL)
+    const dataUrl = await toPng(element as HTMLElement, {
+      quality: 1,
+      pixelRatio: 2,
+      backgroundColor: '#000000',
+      cacheBust: true,
+      width: targetWidth,
+      height: targetHeight
+    })
+
+    generatedImageUrl.value = dataUrl
+  } catch (error) {
+    console.error('이미지 생성 실패:', error)
+  }
+}
+
 onMounted(async () => {
   const token = route.query.token as string | undefined
   if (token) {
@@ -144,8 +207,18 @@ onMounted(async () => {
   if (!displayResult.value) {
     router.push('/')
   } else {
+    // 이미지 생성 시작
+    isLoading.value = true
+    loadingMessage.value = '결과 이미지 생성 중...'
+
     // 스크롤 애니메이션 설정
     setupScrollAnimation()
+
+    // ResultCard 이미지 생성
+    await generateCardImage()
+
+    isLoading.value = false
+    loadingMessage.value = ''
   }
 })
 
@@ -162,6 +235,10 @@ const handleRestart = () => {
 
 const handleShare = async () => {
   if (!displayResult.value) return
+
+  isLoading.value = true
+  loadingMessage.value = '공유 링크 생성 중...'
+
   try {
     const response = await $fetch<{ id: string }>('/api/result', {
       method: 'POST',
@@ -176,20 +253,38 @@ const handleShare = async () => {
   } catch (error) {
     console.error(error)
     alert('공유 실패')
+  } finally {
+    isLoading.value = false
+    loadingMessage.value = ''
   }
 }
 
 const handleDownloadImage = async () => {
-  if (!resultCardRef.value || !displayResult.value) return
-  const dataUrl = await toPng(resultCardRef.value, {
-    quality: 1,
-    pixelRatio: 2,
-    backgroundColor: '#fff'
-  })
-  const link = document.createElement('a')
-  link.download = `산타_대타_임무_${displayUserName.value}_결과.png`
-  link.href = dataUrl
-  link.click()
+  if (!displayResult.value) return
+
+  isLoading.value = true
+  loadingMessage.value = '이미지 다운로드 중...'
+
+  try {
+    // 이미 생성된 이미지가 없으면 생성
+    if (!generatedImageUrl.value) {
+      loadingMessage.value = '이미지 생성 중...'
+      await generateCardImage()
+    }
+
+    if (generatedImageUrl.value) {
+      const link = document.createElement('a')
+      link.download = `산타_대타_임무_${displayUserName.value}_결과.png`
+      link.href = generatedImageUrl.value
+      link.click()
+    }
+  } catch (error) {
+    console.error('이미지 저장 실패:', error)
+    alert('이미지 저장에 실패했습니다. 다시 시도해주세요.')
+  } finally {
+    isLoading.value = false
+    loadingMessage.value = ''
+  }
 }
 </script>
 
