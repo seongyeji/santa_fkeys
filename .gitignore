@@ -6,6 +6,9 @@
 .cache
 dist
 
+# Server data
+server/data
+
 # Node dependencies
 node_modules
 
