@@ -107,7 +107,7 @@ const metaTitle = computed(() => {
   if (displayResult.value?.characterName) {
     return `나와 비슷한 요원은 "${displayResult.value.characterName}"!`
   }
-  return '산타 대타 임무 - 성격 테스트 결과'
+  return '크리스마스 선물 배달 - fkeys'
 })
 
 const metaDescription = computed(() => {
@@ -336,7 +336,7 @@ const handleDownloadImage = async () => {
 
     if (generatedImageUrl.value) {
       const link = document.createElement('a')
-      link.download = `산타_대타_임무_${displayUserName.value}_결과.png`
+      link.download = `크리스마스_선물_배달_${displayUserName.value}_결과.png`
       link.href = generatedImageUrl.value
       link.click()
     }

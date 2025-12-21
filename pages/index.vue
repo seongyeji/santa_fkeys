@@ -16,7 +16,7 @@
           <h1
             class="font-founder text-2xl text-center mb-4 text-primary-300 tracking-wide animate-glowText"
           >
-            크리스마스 선물 배달 임무
+            크리스마스 선물 배달
           </h1>
 
           <!-- STEP 내용 -->
