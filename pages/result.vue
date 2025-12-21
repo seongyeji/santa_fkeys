@@ -99,6 +99,39 @@ const userStore = useUserStore()
 const router = useRouter()
 const route = useRoute()
 
+const displayUserName = computed(() => userStore.name || quizStore.savedUserName)
+const displayResult = computed<QuizResult | null>(() => quizStore.savedResult || quizStore.result)
+
+// 메타 태그 설정
+const metaTitle = computed(() => {
+  if (displayResult.value?.characterName) {
+    return `나와 비슷한 요원은 "${displayResult.value.characterName}"!`
+  }
+  return '산타 대타 임무 - 성격 테스트 결과'
+})
+
+const metaDescription = computed(() => {
+  return displayResult.value?.description || '당신과 비슷한 FKEYS 요원을 찾아보세요!'
+})
+
+// 공유 이미지 URL (Firebase Storage URL만 사용)
+const shareImageUrl = ref<string>('')
+
+useHead({
+  title: metaTitle,
+  meta: [
+    { name: 'description', content: metaDescription },
+    { property: 'og:title', content: metaTitle },
+    { property: 'og:description', content: metaDescription },
+    { property: 'og:image', content: () => shareImageUrl.value || '' },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: metaTitle },
+    { name: 'twitter:description', content: metaDescription },
+    { name: 'twitter:image', content: () => shareImageUrl.value || '' }
+  ]
+})
+
 const resultCardRef = ref<HTMLElement | null>(null)
 const chartRef = ref<HTMLElement | null>(null)
 const buttonsRef = ref<HTMLElement | null>(null)
@@ -118,8 +151,8 @@ const loadingMessage = ref('')
 // 생성된 이미지 상태
 const generatedImageUrl = ref<string | null>(null)
 
-const displayUserName = computed(() => userStore.name || quizStore.savedUserName)
-const displayResult = computed<QuizResult | null>(() => quizStore.savedResult || quizStore.result)
+// 공유 링크 저장 (페이지 벗어나면 자동 삭제)
+let savedShareUrl: string | null = null
 
 // Intersection Observer 설정
 let observer: IntersectionObserver | null = null
@@ -170,8 +203,8 @@ const generateCardImage = async () => {
 
     // 이미지 생성 (base64 data URL)
     const dataUrl = await toPng(element as HTMLElement, {
-      quality: 1,
-      pixelRatio: 2,
+      quality: 0.8,
+      pixelRatio: 1.5,
       backgroundColor: '#000000',
       cacheBust: true,
       width: targetWidth,
@@ -188,15 +221,24 @@ onMounted(async () => {
   const token = route.query.token as string | undefined
   if (token) {
     try {
-      const tokenData = await $fetch<{ result: QuizResult; userName: string; answers: string[] }>(
-        `/api/result?id=${token}`
-      )
+      const tokenData = await $fetch<{
+        result: QuizResult
+        userName: string
+        answers: string[]
+        imageUrl?: string
+      }>(`/api/result?id=${token}`)
       if (tokenData) {
         quizStore.savedResult = tokenData.result
         quizStore.savedUserName = tokenData.userName
         quizStore.answers = tokenData.answers as any
         quizStore.isCompleted = true
         isSharedResult.value = true
+
+        // 저장된 이미지가 있으면 사용
+        if (tokenData.imageUrl) {
+          generatedImageUrl.value = tokenData.imageUrl
+          shareImageUrl.value = tokenData.imageUrl
+        }
       }
     } catch (error) {
       console.error('공유 결과 불러오기 실패:', error)
@@ -207,18 +249,20 @@ onMounted(async () => {
   if (!displayResult.value) {
     router.push('/')
   } else {
-    // 이미지 생성 시작
-    isLoading.value = true
-    loadingMessage.value = '결과 이미지 생성 중...'
-
     // 스크롤 애니메이션 설정
     setupScrollAnimation()
 
-    // ResultCard 이미지 생성
-    await generateCardImage()
+    // 저장된 이미지가 없는 경우에만 이미지 생성
+    if (!generatedImageUrl.value) {
+      isLoading.value = true
+      loadingMessage.value = '결과 생성 중...'
 
-    isLoading.value = false
-    loadingMessage.value = ''
+      // ResultCard 이미지 생성
+      await generateCardImage()
+
+      isLoading.value = false
+      loadingMessage.value = ''
+    }
   }
 })
 
@@ -237,19 +281,37 @@ const handleShare = async () => {
   if (!displayResult.value) return
 
   isLoading.value = true
-  loadingMessage.value = '공유 링크 생성 중...'
+  loadingMessage.value = '공유 준비 중...'
 
   try {
-    const response = await $fetch<{ id: string }>('/api/result', {
-      method: 'POST',
-      body: {
-        userName: displayUserName.value,
-        result: displayResult.value,
-        answers: quizStore.answers
-      }
-    })
-    await navigator.clipboard.writeText(`${window.location.origin}/result?token=${response.id}`)
-    alert('결과 링크가 클립보드에 복사되었습니다!')
+    let shareUrl = savedShareUrl
+
+    // 저장된 공유 링크가 없으면 새로 생성
+    if (!shareUrl) {
+      const response = await $fetch<{ id: string }>('/api/result', {
+        method: 'POST',
+        body: {
+          userName: displayUserName.value,
+          result: displayResult.value,
+          answers: quizStore.answers,
+          imageBase64: generatedImageUrl.value
+        }
+      })
+
+      shareUrl = `${window.location.origin}/result?token=${response.id}`
+      savedShareUrl = shareUrl
+    }
+
+    // 트위터 공유 텍스트 생성
+    const characterName = displayResult.value?.characterName || '나의 결과'
+    const userName = displayUserName.value || '나'
+    const twitterText = `#FKEYS_크리스마스_테스트\n${userName}와 비슷한 요원은 "${characterName}"! 🎅\n\n`
+
+    // 트위터 공유 URL 생성
+    const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}&url=${encodeURIComponent(shareUrl)}`
+
+    // 트위터 공유 페이지 열기
+    window.open(twitterShareUrl, '_blank', 'width=550,height=420')
   } catch (error) {
     console.error(error)
     alert('공유 실패')

@@ -1,8 +1,10 @@
 import { initializeApp, cert, getApps, type App } from 'firebase-admin/app'
 import { getFirestore, type Firestore } from 'firebase-admin/firestore'
+import { getStorage, type Storage } from 'firebase-admin/storage'
 
 let app: App
 let db: Firestore
+let storage: Storage
 
 export function initFirebase() {
   if (getApps().length === 0) {
@@ -24,10 +26,12 @@ export function initFirebase() {
           projectId: config.firebaseProjectId,
           clientEmail: config.firebaseClientEmail,
           privateKey: config.firebasePrivateKey?.replace(/\\n/g, '\n')
-        })
+        }),
+        storageBucket: `${config.firebaseProjectId}.appspot.com`
       })
 
       db = getFirestore(app)
+      storage = getStorage(app)
       console.log('[Firebase] Successfully initialized')
     } catch (error) {
       console.error('[Firebase] Initialization failed:', error)
@@ -35,7 +39,7 @@ export function initFirebase() {
     }
   }
 
-  return { app, db }
+  return { app, db, storage }
 }
 
 export function getFirebaseDB(): Firestore {
@@ -44,4 +48,12 @@ export function getFirebaseDB(): Firestore {
     return firebaseDb
   }
   return db
+}
+
+export function getFirebaseStorage(): Storage {
+  if (!storage) {
+    const { storage: firebaseStorage } = initFirebase()
+    return firebaseStorage
+  }
+  return storage
 }
