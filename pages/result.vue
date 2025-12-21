@@ -1,9 +1,25 @@
 <template>
   <div class="container mx-auto px-4 py-8">
+    <!-- 제목 -->
+    <div ref="headerRef" class="mb-8 animate-on-scroll" :class="{ 'is-visible': isHeaderVisible }">
+      <div class="text-center text-[0.65rem] pb-3 text-slate-500">
+        <div class="text-[0.25rem]">◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤</div>
+        ────────────────────..★.─
+      </div>
+      <h1 class="text-2xl font-founder text-center leading-tight py-2">
+        {{ displayUserName }}의<br class="md:hidden" />
+        <span class="md:ml-2">파트너 요원은?</span>
+      </h1>
+      <div class="text-center text-[0.65rem] pt-3 text-slate-500">
+        ─..★.────────────────────
+        <div class="text-[0.25rem]">◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤</div>
+      </div>
+    </div>
+
     <!-- 이미지 생성용 숨겨진 ResultCard -->
     <div
       v-if="displayResult && !generatedImageUrl"
-      ref="resultCardRef"
+      ref="hiddenCardRef"
       class="fixed top-0 left-0 opacity-0 pointer-events-none"
       style="width: 500px; height: 600px; z-index: -1"
     >
@@ -11,7 +27,7 @@
     </div>
 
     <!-- 실제 화면에 표시될 이미지 -->
-    <div class="animate-on-scroll" :class="{ 'is-visible': isCardVisible }">
+    <div ref="resultCardRef" class="animate-on-scroll" :class="{ 'is-visible': isCardVisible }">
       <img
         v-if="generatedImageUrl"
         :src="generatedImageUrl"
@@ -92,7 +108,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { toPng } from 'html-to-image'
 import { useQuizStore } from '~/stores/quiz'
 import { useUserStore } from '~/stores/user'
-import type { QuizResult } from '~/types/quiz'
+import type { QuizResult, CharacterType } from '~/types/quiz'
 
 const quizStore = useQuizStore()
 const userStore = useUserStore()
@@ -132,6 +148,8 @@ useHead({
   ]
 })
 
+const headerRef = ref<HTMLElement | null>(null)
+const hiddenCardRef = ref<HTMLElement | null>(null)
 const resultCardRef = ref<HTMLElement | null>(null)
 const chartRef = ref<HTMLElement | null>(null)
 const buttonsRef = ref<HTMLElement | null>(null)
@@ -139,6 +157,7 @@ const promoRef = ref<HTMLElement | null>(null)
 const isSharedResult = ref(false)
 
 // 스크롤 애니메이션 상태
+const isHeaderVisible = ref(false)
 const isCardVisible = ref(false)
 const isChartVisible = ref(false)
 const isButtonsVisible = ref(false)
@@ -165,8 +184,11 @@ const setupScrollAnimation = () => {
 
   observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        if (entry.target === resultCardRef.value) {
+      // 로딩 중에는 애니메이션 트리거하지 않음
+      if (entry.isIntersecting && !isLoading.value) {
+        if (entry.target === headerRef.value) {
+          isHeaderVisible.value = true
+        } else if (entry.target === resultCardRef.value) {
           isCardVisible.value = true
         } else if (entry.target === chartRef.value) {
           isChartVisible.value = true
@@ -179,6 +201,7 @@ const setupScrollAnimation = () => {
     })
   }, options)
 
+  if (headerRef.value) observer.observe(headerRef.value)
   if (resultCardRef.value) observer.observe(resultCardRef.value)
   if (chartRef.value) observer.observe(chartRef.value)
   if (buttonsRef.value) observer.observe(buttonsRef.value)
@@ -186,13 +209,13 @@ const setupScrollAnimation = () => {
 }
 
 const generateCardImage = async () => {
-  if (!resultCardRef.value) return
+  if (!hiddenCardRef.value) return
 
   try {
     // DOM이 완전히 렌더링될 때까지 대기
     await new Promise((resolve) => setTimeout(resolve, 500))
 
-    const element = resultCardRef.value.querySelector('.result-card-inner')
+    const element = hiddenCardRef.value.querySelector('.result-card-inner')
     if (!element) {
       console.error('ResultCard 요소를 찾을 수 없습니다')
       return
@@ -230,7 +253,7 @@ onMounted(async () => {
       if (tokenData) {
         quizStore.savedResult = tokenData.result
         quizStore.savedUserName = tokenData.userName
-        quizStore.answers = tokenData.answers as any
+        quizStore.answers = tokenData.answers as CharacterType[]
         quizStore.isCompleted = true
         isSharedResult.value = true
 
@@ -249,9 +272,6 @@ onMounted(async () => {
   if (!displayResult.value) {
     router.push('/')
   } else {
-    // 스크롤 애니메이션 설정
-    setupScrollAnimation()
-
     // 저장된 이미지가 없는 경우에만 이미지 생성
     if (!generatedImageUrl.value) {
       isLoading.value = true
@@ -263,6 +283,10 @@ onMounted(async () => {
       isLoading.value = false
       loadingMessage.value = ''
     }
+
+    // 로딩 완료 후 스크롤 애니메이션 설정
+    await nextTick()
+    setupScrollAnimation()
   }
 })
 
