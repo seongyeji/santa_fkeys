@@ -12,42 +12,44 @@
 
     <!-- 차트 -->
     <div class="space-y-5">
-      <div v-for="item in chartData" :key="item.key" class="space-y-2">
-        <!-- 라벨 -->
-        <div class="flex justify-between items-center">
-          <span
-            class="text-sm font-medium tracking-wide"
-            :class="item.isHighest ? 'text-primary-300' : 'text-slate-400'"
-          >
-            {{ item.name }}
-          </span>
+      <div v-for="item in chartData" :key="item.key" class="flex gap-2 items-center">
+        <img :src="images[item.key]" :alt="item.key" class="size-10 rounded-full shrink-0" />
+        <div class="flex flex-col grow gap-2">
+          <div class="flex justify-between items-center grow">
+            <span
+              class="text-sm font-medium tracking-wide shrink-0"
+              :class="item.isHighest ? 'text-primary-300' : 'text-slate-400'"
+            >
+              {{ item.name }}
+            </span>
 
-          <span
-            class="text-sm font-mono"
-            :class="
-              item.isHighest
-                ? 'text-primary-400 drop-shadow-[0_0_6px_rgba(56,189,248,0.6)]'
-                : 'text-slate-500'
-            "
-          >
-            {{ item.percentage || 0 }}%
-          </span>
-        </div>
+            <span
+              class="text-sm font-mono"
+              :class="
+                item.isHighest
+                  ? 'text-primary-400 drop-shadow-[0_0_6px_rgba(56,189,248,0.6)]'
+                  : 'text-slate-500'
+              "
+            >
+              {{ item.percentage || 0 }}%
+            </span>
+          </div>
 
-        <!-- 바 -->
-        <div
-          class="relative w-full h-3 rounded-full overflow-hidden bg-slate-800 border border-slate-700/50"
-        >
-          <div v-if="item.isHighest" class="absolute inset-0 blur-md bg-primary-500/30" />
+          <!-- 바 -->
           <div
-            class="relative h-full transition-all duration-700 ease-out"
-            :class="
-              item.isHighest
-                ? 'bg-gradient-to-r from-primary-400 to-primary-600'
-                : 'bg-gradient-to-r from-slate-500 to-slate-400'
-            "
-            :style="{ width: `${item.percentage || 0}%` }"
-          />
+            class="relative w-full h-3 rounded-full overflow-hidden bg-slate-800 border border-slate-700/50"
+          >
+            <div v-if="item.isHighest" class="absolute inset-0 blur-md bg-primary-500/30" />
+            <div
+              class="relative h-full transition-all duration-700 ease-out"
+              :class="
+                item.isHighest
+                  ? 'bg-gradient-to-r from-primary-400 to-primary-600'
+                  : 'bg-gradient-to-r from-slate-500 to-slate-400'
+              "
+              :style="{ width: `${item.percentage || 0}%` }"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -61,12 +63,23 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { CHARACTER_PROFILES } from '~/data/questions'
+import lenaImg from '@/assets/imgs/result/avatar/lena.png'
+import rahelImg from '@/assets/imgs/result/avatar/rahel.png'
+import dowonImg from '@/assets/imgs/result/avatar/dowon.png'
+import runaImg from '@/assets/imgs/result/avatar/runa.png'
 
 type CharacterKey = 'lena' | 'rahel' | 'dowon' | 'runa'
 
 const props = defineProps<{
   percentages: Partial<Record<CharacterKey, number>> | null
 }>()
+
+const images = {
+  lena: lenaImg,
+  rahel: rahelImg,
+  dowon: dowonImg,
+  runa: runaImg
+}
 
 // 애니메이션용 현재 퍼센테이지 상태
 const animatedPercentages = ref<Record<CharacterKey, number>>({

@@ -1,7 +1,7 @@
 <template>
   <button
     :class="[
-      'w-full p-4 text-left rounded-lg border-2 transition-all duration-200',
+      'w-full p-3 px-4 text-left rounded-lg border-2 transition-all duration-200',
       'hover:scale-[1.02] hover:shadow-lg ',
       isSelected
         ? 'border-primary-500 bg-primary-900/20'
@@ -9,17 +9,17 @@
     ]"
     @click="$emit('click')"
   >
-    <div class="flex items-center gap-3">
-      <div
+    <div class="flex items-center gap-2">
+      <!-- <div
         :class="[
-          'shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm',
+          'shrink-0 size-6 rounded-full flex items-center justify-center font-bold text-sm',
           isSelected ? 'bg-primary-500 text-white' : 'bg-slate-600 text-slate-400'
         ]"
       >
         {{ label }}
-      </div>
-      <div class="flex-1 flex items-center">
-        <p :class="['text-lg', isSelected ? 'text-slate-100' : 'text-slate-300']">
+      </div> -->
+      <div class="flex-1 flex items-center justify-center">
+        <p :class="['text-lg text-center', isSelected ? 'text-slate-100' : 'text-slate-300']">
           {{ text }}
         </p>
       </div>

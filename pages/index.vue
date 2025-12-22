@@ -37,7 +37,7 @@
       <img src="@/assets/imgs/info-box.png" alt="" class="-z-1 w-full mx-auto" />
     </div>
     <div class="flex flex-col gap-3 mx-[10%]">
-      <UButton size="xl" class="p-3 text-2xl mt-10" block to="quiz"> 임무 시작 </UButton>
+      <UButton size="xl" class="mt-10" block to="quiz"> 임무 시작 </UButton>
     </div>
   </div>
 </template>

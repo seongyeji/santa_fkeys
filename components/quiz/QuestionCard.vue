@@ -1,13 +1,13 @@
 <template>
-  <div class="bg-slate-800 rounded-xl shadow-lg p-6 md:p-8">
-    <div class="mb-8">
-      <h6 class="text-[1.75rem] font-founder pb-3">"{{ question.title }}"</h6>
+  <div class="bg-slate-800 rounded-xl shadow-lg p-6 pt-10 flex flex-col">
+    <div class="mb-8 text-center">
+      <h6 class="text-4xl font-founder pb-3 break-keep">{{ question.title }}</h6>
       <p class="text-base text-slate-200 leading-relaxed whitespace-pre-line">
         {{ question.desc }}
       </p>
     </div>
 
-    <div class="space-y-3">
+    <div class="space-y-3 mt-10">
       <QuizChoiceButton
         v-for="choice in choices"
         :key="choice.label"

@@ -1,5 +1,9 @@
 <template>
-  <div v-if="result" :class="['rounded-2xl border relative aspect-5/6', borderColorClass]" class="result-card-inner">
+  <div
+    v-if="result"
+    :class="['rounded-2xl border relative aspect-5/6', borderColorClass]"
+    class="result-card-inner"
+  >
     <div class="absolute inset-0 overflow-hidden rounded-2xl">
       <img :src="characterImage" class="w-full h-full object-cover" :alt="result.characterName" />
     </div>

@@ -126,15 +126,15 @@ export function calculateResult(answers: CharacterType[]): QuizResult {
     }
   })
 
-  // 총 점수 계산
-  const totalScore = scores.lena + scores.rahel + scores.dowon + scores.runa
+  // 최대 점수 계산 (각 문항당 5점 만점 × 문항 수)
+  const maxScore = QUIZ_QUESTIONS.length * 5
 
-  // 퍼센테이지 계산
+  // 퍼센테이지 계산 (각 캐릭터별 점수 / 최대 점수 × 100)
   const percentages = {
-    lena: totalScore > 0 ? Math.round((scores.lena / totalScore) * 100) : 0,
-    rahel: totalScore > 0 ? Math.round((scores.rahel / totalScore) * 100) : 0,
-    dowon: totalScore > 0 ? Math.round((scores.dowon / totalScore) * 100) : 0,
-    runa: totalScore > 0 ? Math.round((scores.runa / totalScore) * 100) : 0
+    lena: maxScore > 0 ? Math.round((scores.lena / maxScore) * 100) : 0,
+    rahel: maxScore > 0 ? Math.round((scores.rahel / maxScore) * 100) : 0,
+    dowon: maxScore > 0 ? Math.round((scores.dowon / maxScore) * 100) : 0,
+    runa: maxScore > 0 ? Math.round((scores.runa / maxScore) * 100) : 0
   }
 
   // 가장 높은 점수의 캐릭터 타입 찾기
