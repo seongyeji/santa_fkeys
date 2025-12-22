@@ -137,11 +137,13 @@ const chartData = computed(() => {
 
   const highest = Math.max(...characterKeys.map((key) => props.percentages?.[key] || 0))
 
-  return characterKeys.map((key) => ({
-    key,
-    name: CHARACTER_PROFILES[key].name,
-    percentage: animatedPercentages.value[key],
-    isHighest: (props.percentages?.[key] || 0) === highest
-  }))
+  return characterKeys
+    .map((key) => ({
+      key,
+      name: CHARACTER_PROFILES[key].name,
+      percentage: animatedPercentages.value[key],
+      isHighest: (props.percentages?.[key] || 0) === highest
+    }))
+    .sort((a, b) => b.percentage - a.percentage)
 })
 </script>
