@@ -1,8 +1,8 @@
 <template>
   <div v-if="activeShows.length > 0">
     <!-- 공연 목록 -->
-    <div class="space-y-20">
-      <div v-for="show in activeShows" :key="show.id">
+    <div class="space-y-15">
+      <div v-for="show in activeShows" :key="show.id" class="flex flex-col gap-2.5">
         <div>
           <h4
             :class="show.color === 'purple' ? 'text-purple-400' : 'text-red-400'"
@@ -104,7 +104,7 @@
           </UButton>
         </a>
         <!-- 공지사항 -->
-        <div v-if="show.notice" class="mt-4 text-xs">
+        <div v-if="show.notice" class="text-xs">
           <p>{{ show.notice }}</p>
         </div>
       </div>

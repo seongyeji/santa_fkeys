@@ -1,20 +1,6 @@
 <template>
-  <div class="container mx-auto px-4 py-8 flex flex-col gap-18">
+  <div class="container mx-auto px-4 py-10 flex flex-col gap-18">
     <!-- 제목 -->
-    <div ref="headerRef" class="animate-on-scroll" :class="{ 'is-visible': isHeaderVisible }">
-      <div class="text-center text-[0.65rem] pb-3 text-slate-500">
-        <div class="text-[0.25rem]">◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤</div>
-        ────────────────────..★.─
-      </div>
-      <h1 class="text-2xl font-founder text-center leading-tight py-2">
-        {{ displayUserName }}의<br class="md:hidden" />
-        <span class="md:ml-2">파트너 요원은?</span>
-      </h1>
-      <div class="text-center text-[0.65rem] pt-3 text-slate-500">
-        ─..★.────────────────────
-        <div class="text-[0.25rem]">◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤</div>
-      </div>
-    </div>
 
     <!-- 이미지 생성용 숨겨진 ResultCard -->
     <div
@@ -28,6 +14,16 @@
 
     <!-- 실제 화면에 표시될 이미지 -->
     <div ref="resultCardRef" class="animate-on-scroll" :class="{ 'is-visible': isCardVisible }">
+      <div
+        ref="headerRef"
+        class="animate-on-scroll mb-8"
+        :class="{ 'is-visible': isHeaderVisible }"
+      >
+        <h1 class="text-3xl font-founder text-center leading-tight p-2">
+          {{ displayUserName }}의<br class="md:hidden" />
+          <span>파트너 요원은?</span>
+        </h1>
+      </div>
       <img
         v-if="generatedImageUrl"
         :src="generatedImageUrl"

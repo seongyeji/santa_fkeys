@@ -1,13 +1,14 @@
 <template>
-  <div class="bg-slate-800 rounded-xl shadow-lg p-6 pt-10 flex flex-col">
-    <div class="mb-8 text-center">
-      <h6 class="text-4xl font-founder pb-3 break-keep">{{ question.title }}</h6>
-      <p class="text-base text-slate-200 leading-relaxed whitespace-pre-line">
-        {{ question.desc }}
-      </p>
-    </div>
-
-    <div class="space-y-3 mt-10">
+  <div class="flex flex-col gap-10 grow overflow-hidden">
+    <CommonBox>
+      <div class="text-center flex gap-10 flex-col">
+        <h6 class="text-4xl font-founder break-keep">{{ question.title }}</h6>
+        <p class="text-base text-slate-200 leading-relaxed whitespace-pre-line">
+          {{ question.desc }}
+        </p>
+      </div>
+    </CommonBox>
+    <div class="flex flex-col gap-3 shrink">
       <QuizChoiceButton
         v-for="choice in choices"
         :key="choice.label"
