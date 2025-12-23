@@ -1,18 +1,21 @@
 <template>
-  <div
-    class="relative rounded-xl p-6 md:p-8 bg-gradient-to-br from-slate-800 via-slate-800 to-slate-900 border border-slate-700/60 shadow-[0_0_40px_rgba(56,189,248,0.08)]"
-  >
+  <div class="space-y-6 px-4">
     <!-- 헤더 -->
-    <h3
-      class="text-lg md:text-xl font-semibold tracking-widest text-slate-100 mb-8 flex items-center gap-2"
-    >
+    <h3 class="text-lg md:text-xl font-bold text-slate-200 text-center">
       <span class="text-primary-400">ANALYSIS</span>
-      <span class="text-slate-400 text-sm">RESULT</span>
+      <span class="text-base ml-2">RESULT</span>
     </h3>
 
     <!-- 차트 -->
-    <div class="space-y-5">
-      <div v-for="item in chartData" :key="item.key" class="flex gap-2 items-center">
+    <div class="space-y-7">
+      <a
+        v-for="item in chartData"
+        :key="item.key"
+        :href="item.twitterUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex gap-4 items-center cursor-pointer hover:opacity-80 transition-opacity group"
+      >
         <img :src="images[item.key]" :alt="item.key" class="size-10 rounded-full shrink-0" />
         <div class="flex flex-col grow gap-2">
           <div class="flex justify-between items-center grow">
@@ -51,18 +54,15 @@
             />
           </div>
         </div>
-      </div>
+      </a>
     </div>
-
-    <div
-      class="absolute bottom-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-primary-500/40 to-transparent"
-    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { CHARACTER_PROFILES } from '~/data/questions'
+import { TWITTER_URLS } from '~/data/members'
 import lenaImg from '@/assets/imgs/result/avatar/lena.png'
 import rahelImg from '@/assets/imgs/result/avatar/rahel.png'
 import dowonImg from '@/assets/imgs/result/avatar/dowon.png'
@@ -132,7 +132,8 @@ const chartData = computed(() => {
       key,
       name: CHARACTER_PROFILES[key].name,
       percentage: 0,
-      isHighest: false
+      isHighest: false,
+      twitterUrl: TWITTER_URLS[key]
     }))
 
   const highest = Math.max(...characterKeys.map((key) => props.percentages?.[key] || 0))
@@ -142,7 +143,8 @@ const chartData = computed(() => {
       key,
       name: CHARACTER_PROFILES[key].name,
       percentage: animatedPercentages.value[key],
-      isHighest: (props.percentages?.[key] || 0) === highest
+      isHighest: (props.percentages?.[key] || 0) === highest,
+      twitterUrl: TWITTER_URLS[key]
     }))
     .sort((a, b) => b.percentage - a.percentage)
 })

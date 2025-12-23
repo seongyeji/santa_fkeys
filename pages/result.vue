@@ -1,7 +1,7 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div class="container mx-auto px-4 py-8 flex flex-col gap-18">
     <!-- 제목 -->
-    <div ref="headerRef" class="mb-8 animate-on-scroll" :class="{ 'is-visible': isHeaderVisible }">
+    <div ref="headerRef" class="animate-on-scroll" :class="{ 'is-visible': isHeaderVisible }">
       <div class="text-center text-[0.65rem] pb-3 text-slate-500">
         <div class="text-[0.25rem]">◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤</div>
         ────────────────────..★.─
@@ -32,55 +32,58 @@
         v-if="generatedImageUrl"
         :src="generatedImageUrl"
         alt="결과 카드"
-        class="mb-8 mx-auto w-full"
+        class="mx-auto w-full"
       />
     </div>
 
     <div ref="chartRef" class="animate-on-scroll" :class="{ 'is-visible': isChartVisible }">
-      <ResultPercentageChart
-        v-if="displayResult"
-        :percentages="displayResult.percentages"
-        class="mb-8"
-      />
+      <ResultPercentageChart v-if="displayResult" :percentages="displayResult.percentages" />
     </div>
 
     <div ref="buttonsRef" class="animate-on-scroll" :class="{ 'is-visible': isButtonsVisible }">
-      <div class="flex gap-6 justify-center">
+      <div class="flex flex-col gap-3 justify-center">
         <UButton
           variant="solid"
           size="xl"
           color="primary"
           icon="solar:repeat-line-duotone"
+          class="w-full grow justify-center items-center flex"
+          label="다시하기"
           @click="handleRestart"
         >
-          다시하기
         </UButton>
 
-        <UButton
-          v-if="!isSharedResult"
-          variant="soft"
-          size="xl"
-          color="success"
-          icon="solar:square-share-line-line-duotone"
-          @click="handleShare"
-        >
-          공유하기
-        </UButton>
+        <div v-if="!isSharedResult" class="flex gap-3">
+          <UButton
+            variant="soft"
+            size="xl"
+            color="success"
+            icon="solar:square-share-line-line-duotone"
+            class="w-full grow justify-center items-center flex"
+            label="공유하기"
+            @click="handleShare"
+          >
+          </UButton>
 
-        <UButton
-          v-if="!isSharedResult"
-          variant="soft"
-          size="xl"
-          icon="solar:download-line-duotone"
-          @click="handleDownloadImage"
-        >
-          이미지 저장
-        </UButton>
+          <UButton
+            variant="soft"
+            size="xl"
+            icon="solar:download-line-duotone"
+            class="w-full grow justify-center items-center flex"
+            label="이미지저장"
+            @click="handleDownloadImage"
+          >
+          </UButton>
+        </div>
       </div>
     </div>
 
+    <div ref="infoRef" class="animate-on-scroll" :class="{ 'is-visible': isInfoVisible }">
+      <ResultInfo />
+    </div>
+
     <!-- 공연 홍보 카드 -->
-    <div ref="promoRef" class="animate-on-scroll mt-16" :class="{ 'is-visible': isPromoVisible }">
+    <div ref="promoRef" class="animate-on-scroll" :class="{ 'is-visible': isPromoVisible }">
       <ResultPromoCard />
     </div>
 
@@ -120,6 +123,7 @@ const hiddenCardRef = ref<HTMLElement | null>(null)
 const resultCardRef = ref<HTMLElement | null>(null)
 const chartRef = ref<HTMLElement | null>(null)
 const buttonsRef = ref<HTMLElement | null>(null)
+const infoRef = ref<HTMLElement | null>(null)
 const promoRef = ref<HTMLElement | null>(null)
 const isSharedResult = ref(false)
 
@@ -128,6 +132,7 @@ const isHeaderVisible = ref(false)
 const isCardVisible = ref(false)
 const isChartVisible = ref(false)
 const isButtonsVisible = ref(false)
+const isInfoVisible = ref(false)
 const isPromoVisible = ref(false)
 
 // 로딩 상태
@@ -161,6 +166,8 @@ const setupScrollAnimation = () => {
           isChartVisible.value = true
         } else if (entry.target === buttonsRef.value) {
           isButtonsVisible.value = true
+        } else if (entry.target === infoRef.value) {
+          isInfoVisible.value = true
         } else if (entry.target === promoRef.value) {
           isPromoVisible.value = true
         }
@@ -173,6 +180,7 @@ const setupScrollAnimation = () => {
   if (chartRef.value) observer.observe(chartRef.value)
   if (buttonsRef.value) observer.observe(buttonsRef.value)
   if (promoRef.value) observer.observe(promoRef.value)
+  if (infoRef.value) observer.observe(infoRef.value)
 }
 
 const generateCardImage = async () => {

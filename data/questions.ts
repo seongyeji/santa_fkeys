@@ -1,4 +1,5 @@
 import type { Question, CharacterType } from '~/types/quiz'
+import { MEMBER_NAMES } from './members'
 
 export const QUIZ_QUESTIONS: Question[] = [
   {
@@ -206,22 +207,22 @@ export const QUIZ_QUESTIONS: Question[] = [
 export const CHARACTER_PROFILES = {
   lena: {
     type: 'A' as CharacterType,
-    name: '레나 (LENA)',
+    name: MEMBER_NAMES.lena,
     traits: ['빠른 결단력', '추진력', '목표지향적', '실행력']
   },
   rahel: {
     type: 'B' as CharacterType,
-    name: '라헬 (RAHEL)',
+    name: MEMBER_NAMES.rahel,
     traits: ['체계적', '분석적', '안정지향적', '꼼꼼함', '집요함']
   },
   dowon: {
     type: 'C' as CharacterType,
-    name: '도원 (DOWON)',
+    name: MEMBER_NAMES.dowon,
     traits: ['공감능력', '전략적 사고', '균형감각', '배려심']
   },
   runa: {
     type: 'D' as CharacterType,
-    name: '루나 (RUNA)',
+    name: MEMBER_NAMES.runa,
     traits: ['정서적', '신중함', '자기이해', '감수성']
   }
 } as const
