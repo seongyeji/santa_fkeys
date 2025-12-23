@@ -24,11 +24,19 @@
           <span>파트너 요원은?</span>
         </h1>
       </div>
+      <!-- 데스크톱에서만 이미지 표시 -->
       <img
         v-if="generatedImageUrl"
         :src="generatedImageUrl"
         alt="결과 카드"
-        class="mx-auto w-full"
+        class="mx-auto w-full hidden md:block"
+      />
+      <!-- 모바일에서는 ResultCard 컴포넌트 직접 표시 -->
+      <ResultCard
+        v-if="displayResult && !generatedImageUrl"
+        :result="displayResult"
+        :user-name="displayUserName"
+        class="md:hidden"
       />
     </div>
 
@@ -236,15 +244,18 @@ onMounted(async () => {
   if (!displayResult.value) {
     router.push('/')
   } else {
-    // 항상 이미지 생성
-    isLoading.value = true
-    loadingMessage.value = '결과 생성 중...'
+    // 데스크톱에서만 이미지 미리 생성
+    const isMobile = window.innerWidth < 768
+    if (!isMobile) {
+      isLoading.value = true
+      loadingMessage.value = '결과 생성 중...'
 
-    // ResultCard 이미지 생성
-    await generateCardImage()
+      // ResultCard 이미지 생성
+      await generateCardImage()
 
-    isLoading.value = false
-    loadingMessage.value = ''
+      isLoading.value = false
+      loadingMessage.value = ''
+    }
 
     // 로딩 완료 후 스크롤 애니메이션 설정
     await nextTick()
