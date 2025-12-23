@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 useHead({
-  titleTemplate: 'Santa FKeys',
+  titleTemplate: 'FKEYS 테스트',
   htmlAttrs: {
     lang: 'ko'
   }

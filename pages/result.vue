@@ -118,36 +118,6 @@ const route = useRoute()
 const displayUserName = computed(() => userStore.name || quizStore.savedUserName)
 const displayResult = computed<QuizResult | null>(() => quizStore.savedResult || quizStore.result)
 
-// 메타 태그 설정
-const metaTitle = computed(() => {
-  if (displayResult.value?.characterName) {
-    return `나와 비슷한 요원은 "${displayResult.value.characterName}"!`
-  }
-  return '크리스마스 선물 배달 - fkeys'
-})
-
-const metaDescription = computed(() => {
-  return '당신과 비슷한 FKEYS 요원을 찾아보세요!'
-})
-
-// 공유 이미지 URL (Firebase Storage URL만 사용)
-const shareImageUrl = ref<string>('')
-
-useHead({
-  title: metaTitle,
-  meta: [
-    { name: 'description', content: metaDescription },
-    { property: 'og:title', content: metaTitle },
-    { property: 'og:description', content: metaDescription },
-    { property: 'og:image', content: () => shareImageUrl.value || '' },
-    { property: 'og:type', content: 'website' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: metaTitle },
-    { name: 'twitter:description', content: metaDescription },
-    { name: 'twitter:image', content: () => shareImageUrl.value || '' }
-  ]
-})
-
 const headerRef = ref<HTMLElement | null>(null)
 const hiddenCardRef = ref<HTMLElement | null>(null)
 const resultCardRef = ref<HTMLElement | null>(null)
@@ -260,7 +230,6 @@ onMounted(async () => {
         // 저장된 이미지가 있으면 사용
         if (tokenData.imageUrl) {
           generatedImageUrl.value = tokenData.imageUrl
-          shareImageUrl.value = tokenData.imageUrl
         }
       }
     } catch (error) {
