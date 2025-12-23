@@ -16,10 +16,10 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '잠시 숨 고르기와 마음 정리'
     },
     scores: {
-      A: { lena: 0, rahel: 5, dowon: 2, runa: 0 },
-      B: { lena: 0, rahel: 3, dowon: 5, runa: 0 },
-      C: { lena: 0, rahel: 4, dowon: 3, runa: 0 },
-      D: { lena: 0, rahel: 1, dowon: 1, runa: 0 }
+      A: { lena: 5, rahel: 5, dowon: 2, runa: 5 },
+      B: { lena: 4, rahel: 3, dowon: 5, runa: 3 },
+      C: { lena: 5, rahel: 4, dowon: 3, runa: 4 },
+      D: { lena: 1, rahel: 1, dowon: 1, runa: 2 }
     }
   },
   {
@@ -36,10 +36,10 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '잠시 날씨가 잦아들길 대기'
     },
     scores: {
-      A: { lena: 0, rahel: 4, dowon: 0, runa: 0 },
-      B: { lena: 0, rahel: 3, dowon: 5, runa: 0 },
-      C: { lena: 0, rahel: 5, dowon: 2, runa: 0 },
-      D: { lena: 0, rahel: 0, dowon: 1, runa: 0 }
+      A: { lena: 2, rahel: 4, dowon: 0, runa: 3 },
+      B: { lena: 4, rahel: 3, dowon: 5, runa: 4 },
+      C: { lena: 5, rahel: 5, dowon: 2, runa: 5 },
+      D: { lena: 1, rahel: 0, dowon: 1, runa: 1 }
     }
   },
   {
@@ -56,10 +56,10 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '괜히 긴장하며 발걸음 늦추기'
     },
     scores: {
-      A: { lena: 0, rahel: 5, dowon: 0, runa: 0 },
-      B: { lena: 0, rahel: 2, dowon: 3, runa: 0 },
-      C: { lena: 0, rahel: 3, dowon: 5, runa: 0 },
-      D: { lena: 0, rahel: 1, dowon: 4, runa: 0 }
+      A: { lena: 2, rahel: 5, dowon: 0, runa: 4 },
+      B: { lena: 4, rahel: 2, dowon: 3, runa: 4 },
+      C: { lena: 5, rahel: 3, dowon: 5, runa: 5 },
+      D: { lena: 5, rahel: 1, dowon: 4, runa: 3 }
     }
   },
   {
@@ -76,10 +76,10 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '잠시 보류하고 다음 집으로'
     },
     scores: {
-      A: { lena: 0, rahel: 5, dowon: 2, runa: 0 },
-      B: { lena: 0, rahel: 2, dowon: 5, runa: 0 },
-      C: { lena: 0, rahel: 3, dowon: 5, runa: 0 },
-      D: { lena: 0, rahel: 4, dowon: 1, runa: 0 }
+      A: { lena: 1, rahel: 5, dowon: 2, runa: 3 },
+      B: { lena: 5, rahel: 2, dowon: 5, runa: 4 },
+      C: { lena: 5, rahel: 3, dowon: 5, runa: 5 },
+      D: { lena: 4, rahel: 4, dowon: 1, runa: 4 }
     }
   },
   {
@@ -96,10 +96,10 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '마음이 무거워 잠시 멈춤'
     },
     scores: {
-      A: { lena: 0, rahel: 5, dowon: 2, runa: 0 },
-      B: { lena: 0, rahel: 2, dowon: 5, runa: 0 },
-      C: { lena: 0, rahel: 3, dowon: 3, runa: 0 },
-      D: { lena: 0, rahel: 0, dowon: 0, runa: 0 }
+      A: { lena: 5, rahel: 5, dowon: 2, runa: 5 },
+      B: { lena: 4, rahel: 2, dowon: 5, runa: 4 },
+      C: { lena: 4, rahel: 3, dowon: 3, runa: 4 },
+      D: { lena: 3, rahel: 0, dowon: 0, runa: 2 }
     }
   },
   {
@@ -116,10 +116,10 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '이 집을 마지막으로 미루기'
     },
     scores: {
-      A: { lena: 0, rahel: 0, dowon: 0, runa: 0 },
-      B: { lena: 0, rahel: 5, dowon: 5, runa: 0 },
-      C: { lena: 0, rahel: 4, dowon: 5, runa: 0 },
-      D: { lena: 0, rahel: 3, dowon: 0, runa: 0 }
+      A: { lena: 1, rahel: 0, dowon: 0, runa: 3 },
+      B: { lena: 5, rahel: 5, dowon: 5, runa: 5 },
+      C: { lena: 4, rahel: 4, dowon: 5, runa: 5 },
+      D: { lena: 0, rahel: 3, dowon: 0, runa: 1 }
     }
   },
   {
@@ -136,10 +136,10 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '잠깐 쉬어야 한다는 인정'
     },
     scores: {
-      A: { lena: 0, rahel: 5, dowon: 5, runa: 0 },
-      B: { lena: 0, rahel: 3, dowon: 2, runa: 0 },
-      C: { lena: 0, rahel: 3, dowon: 3, runa: 0 },
-      D: { lena: 0, rahel: 4, dowon: 0, runa: 0 }
+      A: { lena: 5, rahel: 5, dowon: 5, runa: 5 },
+      B: { lena: 3, rahel: 3, dowon: 2, runa: 3 },
+      C: { lena: 5, rahel: 3, dowon: 3, runa: 3 },
+      D: { lena: 1, rahel: 4, dowon: 0, runa: 1 }
     }
   },
   {
@@ -156,10 +156,10 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '편지를 조용히 접어두기'
     },
     scores: {
-      A: { lena: 0, rahel: 5, dowon: 3, runa: 0 },
-      B: { lena: 0, rahel: 4, dowon: 5, runa: 0 },
-      C: { lena: 0, rahel: 4, dowon: 4, runa: 0 },
-      D: { lena: 0, rahel: 2, dowon: 0, runa: 0 }
+      A: { lena: 5, rahel: 5, dowon: 3, runa: 5 },
+      B: { lena: 4, rahel: 4, dowon: 5, runa: 5 },
+      C: { lena: 3, rahel: 4, dowon: 4, runa: 3 },
+      D: { lena: 1, rahel: 2, dowon: 0, runa: 3 }
     }
   },
   {
@@ -176,10 +176,10 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '내가 감당할 수 있는 만큼만'
     },
     scores: {
-      A: { lena: 0, rahel: 4, dowon: 4, runa: 0 },
-      B: { lena: 0, rahel: 5, dowon: 5, runa: 0 },
-      C: { lena: 0, rahel: 3, dowon: 3, runa: 0 },
-      D: { lena: 0, rahel: 4, dowon: 0, runa: 0 }
+      A: { lena: 5, rahel: 4, dowon: 4, runa: 1 },
+      B: { lena: 4, rahel: 5, dowon: 5, runa: 3 },
+      C: { lena: 5, rahel: 3, dowon: 3, runa: 5 },
+      D: { lena: 3, rahel: 4, dowon: 0, runa: 1 }
     }
   },
   {
@@ -196,10 +196,10 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '긴 밤을 버틴 나 자신'
     },
     scores: {
-      A: { lena: 0, rahel: 5, dowon: 5, runa: 0 },
-      B: { lena: 0, rahel: 4, dowon: 2, runa: 0 },
-      C: { lena: 0, rahel: 3, dowon: 5, runa: 0 },
-      D: { lena: 0, rahel: 3, dowon: 3, runa: 0 }
+      A: { lena: 5, rahel: 5, dowon: 5, runa: 5 },
+      B: { lena: 3, rahel: 4, dowon: 2, runa: 5 },
+      C: { lena: 5, rahel: 3, dowon: 5, runa: 3 },
+      D: { lena: 2, rahel: 3, dowon: 3, runa: 1 }
     }
   }
 ]
