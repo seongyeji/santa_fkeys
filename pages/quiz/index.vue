@@ -17,7 +17,8 @@
           <div class="mb-8 text-center">
             <h6 class="text-4xl font-founder pb-3 break-keep">요원, 이름을 알려주세요.</h6>
             <p class="text-base text-slate-200 leading-relaxed break-keep">
-              임무 출동을 위해 먼저 당신의 이름이 필요합니다. 정확히 입력하고 준비를 마쳐주세요.
+              임무 출동을 위해 먼저 당신의 이름이 필요합니다. <br />
+              정확히 입력하고 준비를 마쳐주세요.
             </p>
           </div>
 

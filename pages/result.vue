@@ -45,13 +45,12 @@
     </div>
 
     <div ref="buttonsRef" class="animate-on-scroll" :class="{ 'is-visible': isButtonsVisible }">
-      <div class="flex flex-col sm:flex-row gap-6 justify-center">
+      <div class="flex gap-6 justify-center">
         <UButton
           variant="solid"
           size="xl"
           color="primary"
           icon="solar:repeat-line-duotone"
-          class="text-lg font-bold px-8 py-4 min-w-40 shadow-lg hover:scale-105 transition-transform"
           @click="handleRestart"
         >
           다시하기
@@ -63,7 +62,6 @@
           size="xl"
           color="success"
           icon="solar:square-share-line-line-duotone"
-          class="text-lg font-bold px-8 py-4 min-w-40 shadow-lg hover:scale-105 transition-transform"
           @click="handleShare"
         >
           공유하기
@@ -74,7 +72,6 @@
           variant="soft"
           size="xl"
           icon="solar:download-line-duotone"
-          class="text-lg font-bold px-8 py-4 min-w-40 shadow-lg hover:scale-105 transition-transform"
           @click="handleDownloadImage"
         >
           이미지 저장
@@ -94,7 +91,7 @@
     >
       <div class="flex flex-col items-center gap-4">
         <div
-          class="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"
+          class="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"
         ></div>
         <p class="text-white text-lg font-medium">{{ loadingMessage }}</p>
       </div>
@@ -218,7 +215,6 @@ onMounted(async () => {
         result: QuizResult
         userName: string
         answers: string[]
-        imageUrl?: string
       }>(`/api/result?id=${token}`)
       if (tokenData) {
         quizStore.savedResult = tokenData.result
@@ -226,11 +222,6 @@ onMounted(async () => {
         quizStore.answers = tokenData.answers as CharacterType[]
         quizStore.isCompleted = true
         isSharedResult.value = true
-
-        // 저장된 이미지가 있으면 사용
-        if (tokenData.imageUrl) {
-          generatedImageUrl.value = tokenData.imageUrl
-        }
       }
     } catch (error) {
       console.error('공유 결과 불러오기 실패:', error)
@@ -241,17 +232,15 @@ onMounted(async () => {
   if (!displayResult.value) {
     router.push('/')
   } else {
-    // 저장된 이미지가 없는 경우에만 이미지 생성
-    if (!generatedImageUrl.value) {
-      isLoading.value = true
-      loadingMessage.value = '결과 생성 중...'
+    // 항상 이미지 생성
+    isLoading.value = true
+    loadingMessage.value = '결과 생성 중...'
 
-      // ResultCard 이미지 생성
-      await generateCardImage()
+    // ResultCard 이미지 생성
+    await generateCardImage()
 
-      isLoading.value = false
-      loadingMessage.value = ''
-    }
+    isLoading.value = false
+    loadingMessage.value = ''
 
     // 로딩 완료 후 스크롤 애니메이션 설정
     await nextTick()
@@ -285,9 +274,7 @@ const handleShare = async () => {
         method: 'POST',
         body: {
           userName: displayUserName.value,
-          result: displayResult.value,
-          answers: quizStore.answers,
-          imageBase64: generatedImageUrl.value
+          answers: quizStore.answers
         }
       })
 
