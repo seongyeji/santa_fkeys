@@ -16,14 +16,15 @@ export default defineNuxtConfig({
         { name: 'description', content: '당신과 비슷한 FKEYS 요원을 찾아보세요!' },
         { property: 'og:title', content: 'FKEYS 크리스마스 테스트' },
         { property: 'og:description', content: '당신과 비슷한 FKEYS 요원을 찾아보세요!' },
-        { property: 'og:image', content: '/og.png' },
+        { property: 'og:image', content: 'https://santa-fkeys.vercel.app/og.png' },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
         { property: 'og:type', content: 'website' },
+        { property: 'og:url', content: 'https://santa-fkeys.vercel.app' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: 'FKEYS 크리스마스 테스트' },
         { name: 'twitter:description', content: '당신과 비슷한 FKEYS 요원을 찾아보세요!' },
-        { name: 'twitter:image', content: '/og.png' }
+        { name: 'twitter:image', content: 'https://santa-fkeys.vercel.app/og.png' }
       ]
     }
   },
