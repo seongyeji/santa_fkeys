@@ -18,8 +18,8 @@
       <span>{{ userName }}</span>
     </div>
 
-    <div v-if="characterTraits.length" class="absolute w-full bottom-[5%] z-10">
-      <div class="flex flex-wrap justify-end gap-3 w-[85%] ms-auto me-[5%]">
+    <div v-if="characterTraits.length" class="absolute left-[10%] right-[5%] bottom-[5%] z-10">
+      <div class="flex flex-wrap justify-end gap-3 w-full">
         <span
           v-for="trait in characterTraits"
           :key="trait"
