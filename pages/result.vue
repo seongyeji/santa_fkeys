@@ -285,7 +285,7 @@ const handleShare = async () => {
     // 트위터 공유 텍스트 생성
     const characterName = displayResult.value?.characterName || '나의 결과'
     const userName = displayUserName.value || '나'
-    const twitterText = `#FKEYS_크리스마스_테스트\n${userName}와 비슷한 요원은 "${characterName}"! 🎅\n\n`
+    const twitterText = `#FKEYS_크리스마스_테스트\n${userName}의 파트너 요원은 "${characterName}"! 🎅\n\n`
 
     // 트위터 공유 URL 생성
     const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}&url=${encodeURIComponent(shareUrl)}`
