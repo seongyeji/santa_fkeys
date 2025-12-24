@@ -5,7 +5,12 @@
     class="result-card-inner"
   >
     <div class="absolute inset-0 overflow-hidden rounded-2xl">
-      <img :src="characterImage" class="w-full h-full object-cover" :alt="result.characterName" />
+      <img
+        :src="characterImage"
+        class="w-full h-full object-cover"
+        :alt="result.characterName"
+        crossorigin="anonymous"
+      />
     </div>
 
     <div
@@ -28,8 +33,7 @@
             traitColorClass
           ]"
         >
-          #
-          {{ trait }}
+          #{{ trait }}
         </span>
       </div>
     </div>

@@ -200,6 +200,25 @@ const generateCardImage = async () => {
       return
     }
 
+    // 모든 이미지가 로드될 때까지 대기 (iOS 호환성 개선)
+    const images = Array.from(element.querySelectorAll('img'))
+    await Promise.all(
+      images.map(
+        (img) =>
+          new Promise((resolve) => {
+            if (img.complete) {
+              resolve(null)
+            } else {
+              img.onload = () => resolve(null)
+              img.onerror = () => {
+                console.warn('이미지 로드 실패:', img.src)
+                resolve(null)
+              }
+            }
+          })
+      )
+    )
+
     const targetWidth = 500
     const targetHeight = 600
 
@@ -277,6 +296,9 @@ const handleRestart = () => {
 const handleShare = async () => {
   if (!displayResult.value) return
 
+  // 팝업 차단 방지: 사용자 액션 직후 즉시 팝업 창 열기
+  const popup = window.open('', '_blank', 'width=550,height=420')
+
   isLoading.value = true
   loadingMessage.value = '공유 준비 중...'
 
@@ -305,10 +327,19 @@ const handleShare = async () => {
     // 트위터 공유 URL 생성
     const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}&url=${encodeURIComponent(shareUrl)}`
 
-    // 트위터 공유 페이지 열기
-    window.open(twitterShareUrl, '_blank', 'width=550,height=420')
+    // 미리 열어둔 팝업에 URL 설정
+    if (popup) {
+      popup.location.href = twitterShareUrl
+    } else {
+      // 팝업이 차단된 경우 대체 방법
+      window.open(twitterShareUrl, '_blank', 'width=550,height=420')
+    }
   } catch (error) {
     console.error(error)
+    // 오류 발생 시 팝업 닫기
+    if (popup) {
+      popup.close()
+    }
     alert('공유 실패')
   } finally {
     isLoading.value = false
@@ -329,15 +360,17 @@ const handleDownloadImage = async () => {
       await generateCardImage()
     }
 
-    if (generatedImageUrl.value) {
-      const link = document.createElement('a')
-      link.download = `크리스마스_선물_배달_${displayUserName.value}_결과.png`
-      link.href = generatedImageUrl.value
-      link.click()
+    if (!generatedImageUrl.value) {
+      throw new Error('이미지 생성에 실패했습니다')
     }
+
+    const link = document.createElement('a')
+    link.download = `크리스마스_선물_배달_${displayUserName.value}_결과.png`
+    link.href = generatedImageUrl.value
+    link.click()
   } catch (error) {
     console.error('이미지 저장 실패:', error)
-    alert('이미지 저장에 실패했습니다. 다시 시도해주세요.')
+    alert('이미지 저장에 실패했습니다.')
   } finally {
     isLoading.value = false
     loadingMessage.value = ''
