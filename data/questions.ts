@@ -55,8 +55,8 @@ export const QUIZ_QUESTIONS: Question[] = [
     scores: {
       A: { lena: 0, rahel: 5, dowon: 0, runa: 1 },
       B: { lena: 1, rahel: 0, dowon: 0, runa: 1 },
-      C: { lena: 5, rahel: 0, dowon: 5, runa: 5 },
-      D: { lena: 3, rahel: 0, dowon: 1, runa: 0 }
+      C: { lena: 5, rahel: 1, dowon: 5, runa: 5 },
+      D: { lena: 0, rahel: 0, dowon: 1, runa: 0 }
     }
   },
   {
@@ -74,8 +74,8 @@ export const QUIZ_QUESTIONS: Question[] = [
     scores: {
       A: { lena: 0, rahel: 5, dowon: 0, runa: 0 },
       B: { lena: 3, rahel: 0, dowon: 3, runa: 1 },
-      C: { lena: 5, rahel: 0, dowon: 5, runa: 5 },
-      D: { lena: 1, rahel: 1, dowon: 0, runa: 1 }
+      C: { lena: 5, rahel: 1, dowon: 5, runa: 5 },
+      D: { lena: 1, rahel: 3, dowon: 0, runa: 1 }
     }
   },
   {
@@ -93,7 +93,7 @@ export const QUIZ_QUESTIONS: Question[] = [
     scores: {
       A: { lena: 5, rahel: 5, dowon: 0, runa: 5 },
       B: { lena: 1, rahel: 0, dowon: 5, runa: 1 },
-      C: { lena: 1, rahel: 0, dowon: 0, runa: 1 },
+      C: { lena: 1, rahel: 1, dowon: 0, runa: 1 },
       D: { lena: 0, rahel: 0, dowon: 0, runa: 0 }
     }
   },
