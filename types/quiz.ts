@@ -1,7 +1,5 @@
-// Character type definition
 export type CharacterType = 'A' | 'B' | 'C' | 'D'
 
-// Score mapping for each choice
 export interface ChoiceScores {
   lena: number
   rahel: number
@@ -9,11 +7,9 @@ export interface ChoiceScores {
   runa: number
 }
 
-// Single question structure
 export interface Question {
-  id: number
-  title: string // Korean scenario description
-  desc: string // Korean scenario description
+  title: string
+  desc: string
   choices: {
     A: string
     B: string
@@ -21,14 +17,13 @@ export interface Question {
     D: string
   }
   scores: {
-    A: ChoiceScores // Scores for choosing option A
-    B: ChoiceScores // Scores for choosing option B
-    C: ChoiceScores // Scores for choosing option C
-    D: ChoiceScores // Scores for choosing option D
+    A: ChoiceScores
+    B: ChoiceScores
+    C: ChoiceScores
+    D: ChoiceScores
   }
 }
 
-// Quiz result
 export interface QuizResult {
   dominantType: CharacterType
   characterName: string
@@ -41,7 +36,6 @@ export interface QuizResult {
   personalizedTraits?: string[]
 }
 
-// Character profile
 export interface CharacterProfile {
   type: CharacterType
   name: string

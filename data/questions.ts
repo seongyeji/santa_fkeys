@@ -3,7 +3,6 @@ import { MEMBER_NAMES } from './members'
 
 export const QUIZ_QUESTIONS: Question[] = [
   {
-    id: 1,
     title: '산타가 부상으로 오늘 밤 비행이 불가능하다',
     desc: `북극 기지에 긴급 호출이 울린다.
 오늘 밤, 산타는 부상으로 썰매에 오를 수 없다는 소식.
@@ -16,14 +15,13 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '잠시 숨 고르기와 마음 정리'
     },
     scores: {
-      A: { lena: 5, rahel: 5, dowon: 2, runa: 5 },
-      B: { lena: 3, rahel: 2, dowon: 5, runa: 2 },
-      C: { lena: 3, rahel: 3, dowon: 3, runa: 3 },
-      D: { lena: 0, rahel: 1, dowon: 1, runa: 1 }
+      A: { lena: 3, rahel: 5, dowon: 0, runa: 5 },
+      B: { lena: 0, rahel: 0, dowon: 5, runa: 0 },
+      C: { lena: 5, rahel: 1, dowon: 0, runa: 1 },
+      D: { lena: 0, rahel: 0, dowon: 0, runa: 0 }
     }
   },
   {
-    id: 2,
     title: '예정보다 거센 눈보라가 앞을 가로막는다',
     desc: `첫 번째 마을로 향하던 중, 눈보라가 시야를 집어삼킨다.
 바람은 방향을 바꾸고, 눈은 경로를 가린다.
@@ -36,14 +34,13 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '잠시 날씨가 잦아들길 대기'
     },
     scores: {
-      A: { lena: 2, rahel: 3, dowon: 0, runa: 3 },
-      B: { lena: 3, rahel: 2, dowon: 5, runa: 3 },
-      C: { lena: 5, rahel: 5, dowon: 3, runa: 5 },
-      D: { lena: 1, rahel: 1, dowon: 3, runa: 0 }
+      A: { lena: 0, rahel: 1, dowon: 0, runa: 0 },
+      B: { lena: 1, rahel: 0, dowon: 5, runa: 1 },
+      C: { lena: 5, rahel: 5, dowon: 0, runa: 5 },
+      D: { lena: 0, rahel: 0, dowon: 0, runa: 0 }
     }
   },
   {
-    id: 3,
     title: '집 안의 불이 아직 꺼지지 않았다',
     desc: `굴뚝 앞에 도착했을 때, 집 안의 불이 아직 켜져 있다.
 누군가 아직 깨어 있을지도 모른다.
@@ -56,14 +53,13 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '괜히 긴장하며 발걸음 늦추기'
     },
     scores: {
-      A: { lena: 2, rahel: 5, dowon: 0, runa: 3 },
-      B: { lena: 3, rahel: 1, dowon: 3, runa: 3 },
-      C: { lena: 5, rahel: 3, dowon: 5, runa: 5 },
-      D: { lena: 1, rahel: 2, dowon: 3, runa: 0 }
+      A: { lena: 0, rahel: 5, dowon: 0, runa: 1 },
+      B: { lena: 1, rahel: 0, dowon: 0, runa: 1 },
+      C: { lena: 5, rahel: 0, dowon: 5, runa: 5 },
+      D: { lena: 3, rahel: 0, dowon: 1, runa: 0 }
     }
   },
   {
-    id: 4,
     title: '주소와 이름이 애매한 선물이 하나 있다',
     desc: `선물 하나를 집어 들었는데, 주소와 이름이 애매하다.
 분명 누군가를 위한 것이지만 확신이 서지 않는다.
@@ -76,14 +72,13 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '잠시 보류하고 다음 집으로'
     },
     scores: {
-      A: { lena: 1, rahel: 5, dowon: 2, runa: 3 },
-      B: { lena: 5, rahel: 2, dowon: 5, runa: 3 },
-      C: { lena: 3, rahel: 2, dowon: 3, runa: 5 },
-      D: { lena: 2, rahel: 2, dowon: 1, runa: 0 }
+      A: { lena: 0, rahel: 5, dowon: 0, runa: 0 },
+      B: { lena: 3, rahel: 0, dowon: 3, runa: 1 },
+      C: { lena: 5, rahel: 0, dowon: 5, runa: 5 },
+      D: { lena: 1, rahel: 1, dowon: 0, runa: 1 }
     }
   },
   {
-    id: 5,
     title: '배달 도중 선물이 하나 부족하다는 걸 알게 된다',
     desc: `정리를 하던 중, 선물이 하나 모자란다는 사실을 깨닫는다.
 실수인지 계산 착오인지 알 수 없다.
@@ -96,14 +91,13 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '마음이 무거워 잠시 멈춤'
     },
     scores: {
-      A: { lena: 5, rahel: 5, dowon: 2, runa: 5 },
-      B: { lena: 3, rahel: 2, dowon: 5, runa: 3 },
-      C: { lena: 2, rahel: 3, dowon: 3, runa: 2 },
-      D: { lena: 1, rahel: 1, dowon: 1, runa: 1 }
+      A: { lena: 5, rahel: 5, dowon: 0, runa: 5 },
+      B: { lena: 1, rahel: 0, dowon: 5, runa: 1 },
+      C: { lena: 1, rahel: 0, dowon: 0, runa: 1 },
+      D: { lena: 0, rahel: 0, dowon: 0, runa: 0 }
     }
   },
   {
-    id: 6,
     title: '굴뚝이 생각보다 많이 좁아 보인다',
     desc: `다음 집의 굴뚝은 눈으로 보기에도 비좁아 보인다.
 억지로 들어갈 수는 있겠지만 무사할지는 장담할 수 없다.
@@ -116,14 +110,13 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '이 집을 마지막으로 미루기'
     },
     scores: {
-      A: { lena: 1, rahel: 0, dowon: 0, runa: 2 },
-      B: { lena: 5, rahel: 5, dowon: 5, runa: 5 },
-      C: { lena: 3, rahel: 3, dowon: 3, runa: 3 },
-      D: { lena: 2, rahel: 3, dowon: 3, runa: 1 }
+      A: { lena: 0, rahel: 0, dowon: 0, runa: 0 },
+      B: { lena: 5, rahel: 5, dowon: 3, runa: 3 },
+      C: { lena: 1, rahel: 1, dowon: 5, runa: 5 },
+      D: { lena: 0, rahel: 0, dowon: 0, runa: 0 }
     }
   },
   {
-    id: 7,
     title: '배달이 절반쯤 끝났을 무렵, 체력이 급격히 떨어진다',
     desc: `배달이 절반쯤 끝났을 때, 몸이 무겁게 느껴진다.
 집중력도 예전 같지 않다.
@@ -136,14 +129,13 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '잠깐 쉬어야 한다는 인정'
     },
     scores: {
-      A: { lena: 5, rahel: 5, dowon: 5, runa: 5 },
-      B: { lena: 3, rahel: 3, dowon: 2, runa: 3 },
-      C: { lena: 2, rahel: 2, dowon: 3, runa: 2 },
-      D: { lena: 1, rahel: 1, dowon: 1, runa: 1 }
+      A: { lena: 3, rahel: 5, dowon: 5, runa: 5 },
+      B: { lena: 0, rahel: 0, dowon: 0, runa: 0 },
+      C: { lena: 5, rahel: 0, dowon: 0, runa: 0 },
+      D: { lena: 0, rahel: 1, dowon: 0, runa: 0 }
     }
   },
   {
-    id: 8,
     title: '우연히 아이의 소원이 적힌 편지를 읽게 된다',
     desc: `굴뚝 옆에서 아이의 편지를 우연히 읽게 된다.
 소원은 간절하지만, 현실은 복잡하다.
@@ -156,14 +148,13 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '편지를 조용히 접어두기'
     },
     scores: {
-      A: { lena: 5, rahel: 5, dowon: 3, runa: 5 },
-      B: { lena: 3, rahel: 3, dowon: 5, runa: 3 },
-      C: { lena: 2, rahel: 2, dowon: 2, runa: 2 },
-      D: { lena: 1, rahel: 1, dowon: 1, runa: 1 }
+      A: { lena: 5, rahel: 5, dowon: 0, runa: 3 },
+      B: { lena: 1, rahel: 1, dowon: 5, runa: 5 },
+      C: { lena: 0, rahel: 1, dowon: 1, runa: 0 },
+      D: { lena: 0, rahel: 0, dowon: 0, runa: 0 }
     }
   },
   {
-    id: 9,
     title: '마지막 마을을 앞두고 시간이 빠듯해진다',
     desc: `마지막 마을이 눈앞에 보이지만 시간이 빠듯하다.
 모든 집을 다 돌기엔 밤이 짧다.
@@ -176,14 +167,13 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '내가 감당할 수 있는 만큼만'
     },
     scores: {
-      A: { lena: 5, rahel: 3, dowon: 3, runa: 1 },
-      B: { lena: 3, rahel: 5, dowon: 5, runa: 3 },
-      C: { lena: 2, rahel: 2, dowon: 2, runa: 5 },
-      D: { lena: 1, rahel: 1, dowon: 1, runa: 2 }
+      A: { lena: 3, rahel: 1, dowon: 1, runa: 0 },
+      B: { lena: 1, rahel: 5, dowon: 5, runa: 0 },
+      C: { lena: 5, rahel: 0, dowon: 0, runa: 5 },
+      D: { lena: 0, rahel: 1, dowon: 0, runa: 0 }
     }
   },
   {
-    id: 10,
     title: '모든 배달을 마친 뒤, 하늘 위에 멈춰 선다',
     desc: `모든 배달을 마치고 하늘 위에 멈춰 선다.
 도시는 조용히 잠들어 있고 새벽은 가까워온다.
@@ -196,10 +186,10 @@ export const QUIZ_QUESTIONS: Question[] = [
       D: '긴 밤을 버틴 나 자신'
     },
     scores: {
-      A: { lena: 5, rahel: 5, dowon: 5, runa: 5 },
-      B: { lena: 3, rahel: 3, dowon: 2, runa: 3 },
-      C: { lena: 2, rahel: 2, dowon: 3, runa: 2 },
-      D: { lena: 1, rahel: 1, dowon: 1, runa: 1 }
+      A: { lena: 3, rahel: 5, dowon: 3, runa: 3 },
+      B: { lena: 0, rahel: 1, dowon: 0, runa: 5 },
+      C: { lena: 5, rahel: 0, dowon: 5, runa: 0 },
+      D: { lena: 0, rahel: 0, dowon: 0, runa: 0 }
     }
   }
 ]
